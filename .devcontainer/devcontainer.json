@@ -1,0 +1,20 @@
+{
+  "name": "Text по-человечески",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "forwardPorts": [4173],
+  "portsAttributes": {
+    "4173": {
+      "label": "Текст по-человечески",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "cd app && npm ci",
+  "customizations": {
+    "codespaces": {
+      "openFiles": ["app/src/App.tsx"]
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {}
+  }
+}
