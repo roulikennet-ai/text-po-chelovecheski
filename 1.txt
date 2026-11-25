@@ -1,0 +1,7 @@
+# В папку с проектом
+git init
+git add .
+git commit -m "Release v1.0"
+git remote add origin https://github.com/roulikennet-ai/text-po-chelovecheski.git
+git branch -M main
+git push -u origin main
