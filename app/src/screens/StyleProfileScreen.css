@@ -1,0 +1,130 @@
+/* StyleProfileScreen.css — design.md §6 (E7) */
+
+.profile-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--s-3);
+  padding: var(--s-4);
+  background: var(--surface-sunken);
+  border-radius: var(--r-3);
+  margin-bottom: var(--s-4);
+}
+
+.profile-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profile-stat__value {
+  font-size: var(--fs-24);
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.profile-stat__label {
+  font-size: var(--fs-12);
+  color: var(--muted);
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--s-4);
+  align-items: start;
+}
+
+.profile-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  padding: var(--s-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.profile-card__title {
+  font-size: var(--fs-16);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.profile-card__title--gap {
+  margin-top: var(--s-4);
+}
+
+.profile-card__desc {
+  font-size: var(--fs-12);
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.profile-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1) var(--s-3);
+  align-items: baseline;
+  padding: var(--s-2) 0;
+}
+
+.profile-word {
+  font-family: var(--font-doc);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.profile-phrases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+}
+
+.profile-sources {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+.profile-source {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-3);
+  font-size: var(--fs-13);
+  padding: var(--s-1) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.profile-source:last-child {
+  border-bottom: none;
+}
+
+.profile-source__name {
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-source__meta {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
+.profile-note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-2);
+  margin-top: var(--s-4);
+  font-size: var(--fs-12);
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 1100px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}

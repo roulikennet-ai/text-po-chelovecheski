@@ -1,0 +1,125 @@
+/* DocumentView.css — design.md §4.2, §2.4 */
+
+.doc {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--paper);
+  padding: var(--s-6) var(--s-6) var(--s-8);
+  display: flex;
+  justify-content: center;
+  scroll-behavior: smooth;
+}
+
+.doc__sheet {
+  width: min(var(--doc-max-w), 100%);
+  background: var(--surface);
+  border-radius: var(--r-3);
+  box-shadow: var(--sh-1);
+  padding: var(--s-7) var(--s-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  min-height: 100%;
+}
+
+.doc__block {
+  font-family: var(--font-doc);
+  font-size: var(--doc-size);
+  line-height: var(--doc-leading);
+  color: var(--ink);
+  white-space: pre-wrap;
+  word-break: break-word;
+  hyphens: auto;
+  text-wrap: pretty;
+  padding: var(--s-1) var(--s-2);
+  margin-left: calc(-1 * var(--s-2));
+  margin-right: calc(-1 * var(--s-2));
+  border-radius: var(--r-1);
+  border-left: 3px solid transparent;
+  cursor: text;
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.doc__block:hover {
+  background: rgba(31, 42, 56, 0.03);
+}
+
+.doc__block--focused {
+  border-left-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.doc__block--bad {
+  border-left-color: var(--bad);
+  background: var(--bad-bg);
+}
+
+.doc__block--warn {
+  border-left-color: var(--warn);
+  background: var(--warn-bg);
+}
+
+.doc__block--heading {
+  font-size: calc(var(--doc-size) * 1.45);
+  font-weight: 600;
+  line-height: 1.35;
+  margin-top: var(--s-4);
+  margin-bottom: var(--s-1);
+}
+
+.doc__block--list-item {
+  padding-left: var(--s-6);
+  position: relative;
+}
+
+.doc__block--list-item::before {
+  content: '—';
+  position: absolute;
+  left: var(--s-3);
+  color: var(--muted-soft);
+}
+
+.doc__block--quote {
+  padding-left: var(--s-5);
+  border-left: 2px solid var(--line-strong);
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* --- Маркеры защиты (design.md §2.4) --- */
+.doc__protected {
+  background: var(--mark-protected);
+  border-bottom: 1px dashed var(--line-strong);
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+.doc__protected--manual,
+.doc__protected--dictionary {
+  border-left: 2px solid var(--accent);
+  background: var(--mark-protected);
+}
+/* --- Поиск --- */
+.doc__mark {
+  background: var(--accent-hover);
+  color: var(--ink);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+@media (max-width: 1200px) {
+  .doc__sheet {
+    padding: var(--s-6) var(--s-6);
+  }
+}
+
+@media (max-width: 900px) {
+  .doc {
+    padding: var(--s-4);
+  }
+
+  .doc__sheet {
+    padding: var(--s-5) var(--s-4);
+  }
+}

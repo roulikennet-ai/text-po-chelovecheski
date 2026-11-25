@@ -1,0 +1,137 @@
+/* Button.css — design.md §5.1 */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  border-radius: var(--r-2);
+  font-family: var(--font-ui);
+  font-size: var(--fs-14);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-1) var(--ease),
+    border-color var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease);
+  user-select: none;
+}
+
+.btn--full {
+  width: 100%;
+}
+
+/* --- Размеры --- */
+.btn--sm {
+  height: 32px;
+  padding: 0 var(--s-3);
+  font-size: var(--fs-13);
+}
+
+.btn--md {
+  height: 40px;
+  padding: 0 var(--s-4);
+}
+
+.btn--lg {
+  height: 48px;
+  padding: 0 var(--s-5);
+  font-size: var(--fs-16);
+}
+
+/* --- Primary: единственное главное действие --- */
+.btn--primary {
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--accent-active);
+  border-color: var(--accent-active);
+}
+
+.btn--primary:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* --- Secondary: outline --- */
+.btn--secondary {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background: var(--hover-neutral);
+}
+
+.btn--secondary:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* --- Ghost --- */
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid transparent;
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background: var(--hover-neutral);
+}
+
+/* --- Danger --- */
+.btn--danger {
+  background: var(--surface);
+  color: var(--bad);
+  border: 1px solid var(--bad);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background: var(--bad-bg);
+}
+
+/* --- Disabled --- */
+.btn:disabled {
+  opacity: 0.45;
+}
+
+.btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+/* --- Icon-only --- */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: var(--click-min);
+  min-height: var(--click-min);
+  border-radius: var(--r-2);
+  color: var(--ink);
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.icon-btn:hover:not(:disabled) {
+  background: var(--hover-neutral);
+}
+
+.icon-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.icon-btn--active {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.icon-btn:disabled {
+  opacity: 0.45;
+}

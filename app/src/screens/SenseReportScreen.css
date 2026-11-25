@@ -1,0 +1,250 @@
+/* SenseReportScreen.css — design.md §5.7, §6 (E5) */
+
+.sense-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--s-3);
+  padding: var(--s-4);
+  background: var(--surface-sunken);
+  border-radius: var(--r-3);
+  margin-bottom: var(--s-5);
+}
+
+.sense-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sense-stat__value {
+  font-size: var(--fs-24);
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.sense-stat__of {
+  font-size: var(--fs-14);
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.sense-stat__value--bad {
+  color: var(--bad);
+}
+
+.sense-stat__value--ok {
+  color: var(--ok);
+}
+
+.sense-stat__value--warn {
+  color: var(--warn);
+}
+
+.sense-stat__label {
+  font-size: var(--fs-12);
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+/* --- Блок 🔴 --- */
+.sense-bad {
+  border: 1px solid var(--bad);
+  background: var(--bad-bg);
+  border-radius: var(--r-3);
+  padding: var(--s-4);
+  margin-bottom: var(--s-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.sense-bad__head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  color: var(--bad);
+  font-size: var(--fs-14);
+}
+
+.sense-bad__item {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+  padding: var(--s-2) var(--s-3);
+  background: var(--surface);
+  border-radius: var(--r-2);
+  font-size: var(--fs-13);
+}
+
+.sense-bad__num {
+  font-weight: 600;
+  color: var(--ink);
+  flex: none;
+}
+
+.sense-bad__msg {
+  flex: 1;
+  color: var(--muted);
+  min-width: 180px;
+}
+
+.sense-bad__actions {
+  display: flex;
+  gap: var(--s-2);
+}
+
+/* --- Таблица --- */
+.sense-table-wrap {
+  background: var(--surface);
+  border-radius: var(--r-3);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  margin-bottom: var(--s-5);
+}
+
+.sense-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-13);
+}
+
+.sense-table th {
+  text-align: left;
+  font-size: var(--fs-12);
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  background: var(--surface-sunken);
+  height: 36px;
+  padding: 0 var(--s-3);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.sense-table td {
+  padding: var(--s-2) var(--s-3);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  vertical-align: top;
+}
+
+.sense-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.sense-table tbody tr:nth-child(even) {
+  background: #fcfbf9;
+}
+
+.sense-table__num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  width: 64px;
+  color: var(--muted);
+}
+
+.sense-row--bad {
+  background: var(--bad-bg) !important;
+  box-shadow: inset 3px 0 0 var(--bad);
+}
+
+.sense-row--warn {
+  background: var(--warn-bg) !important;
+  box-shadow: inset 3px 0 0 var(--warn);
+}
+
+.sense-table__issues ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--muted);
+  font-size: var(--fs-12);
+  line-height: 1.4;
+}
+
+.sense-table__clean {
+  color: var(--muted-soft);
+  font-size: var(--fs-12);
+}
+
+/* --- Метрики --- */
+.sense-metrics {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  padding: var(--s-4);
+  margin-bottom: var(--s-4);
+}
+
+.sense-metrics__title {
+  font-size: var(--fs-18);
+  font-weight: 600;
+  margin-bottom: var(--s-3);
+}
+
+.sense-metrics__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--s-4);
+}
+
+.sense-metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+.sense-metric__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-2);
+}
+
+.sense-metric__name {
+  font-size: var(--fs-12);
+  color: var(--muted);
+}
+
+.sense-metric__value {
+  font-size: var(--fs-13);
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.sense-metric__bar {
+  height: 6px;
+  background: var(--surface-sunken);
+  border-radius: var(--r-full);
+  overflow: hidden;
+}
+
+.sense-metric__fill {
+  height: 100%;
+  background: var(--ok);
+  border-radius: var(--r-full);
+  transition: width var(--dur-3) var(--ease);
+}
+
+.sense-metric__fill--low {
+  background: var(--warn);
+}
+
+.sense-metrics__hint {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin-top: var(--s-3);
+  font-size: var(--fs-12);
+  color: var(--warn);
+}
+
+.sense-foot {
+  display: flex;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+}

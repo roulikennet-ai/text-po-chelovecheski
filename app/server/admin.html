@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Админ-сводка — Текст по-человечески</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f6f7f9;
+        --surface: #ffffff;
+        --line: #dfe3e8;
+        --ink: #16181d;
+        --muted: #6b7280;
+        --accent: #c2410c;
+        --ok: #15803d;
+        --err: #b91c1c;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #14161a;
+          --surface: #1d2026;
+          --line: #2e333b;
+          --ink: #e8eaed;
+          --muted: #9aa2ad;
+          --accent: #f97316;
+          --ok: #4ade80;
+          --err: #f87171;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 24px;
+        font: 15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+      }
+      main { max-width: 960px; margin: 0 auto; }
+      h1 { font-size: 22px; margin: 0 0 4px; }
+      .sub { color: var(--muted); margin: 0 0 20px; font-size: 14px; }
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+      .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+      input, select, button {
+        font: inherit;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: var(--ink);
+      }
+      input { flex: 1 1 260px; min-width: 200px; }
+      button {
+        cursor: pointer;
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+        font-weight: 600;
+      }
+      button:disabled { opacity: 0.5; cursor: default; }
+      .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+      .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+      .card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+      .card .value { font-size: 24px; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
+      .card .value.ok { color: var(--ok); }
+      .card .value.err { color: var(--err); }
+      table { width: 100%; border-collapse: collapse; font-size: 14px; }
+      th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+      th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+      td.num { font-variant-numeric: tabular-nums; }
+      .status { font-size: 14px; margin-top: 12px; min-height: 20px; }
+      .status.err { color: var(--err); }
+      .hidden { display: none; }
+      .note { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Сводка использования</h1>
+      <p class="sub">Запросы к GigaChat и расход токенов. Тексты документов не сохраняются.</p>
+
+      <form class="panel" id="auth">
+        <div class="row">
+          <input id="token" type="password" placeholder="Токен администратора" autocomplete="off" />
+          <select id="days">
+            <option value="1">1 день</option>
+            <option value="7" selected>7 дней</option>
+            <option value="30">30 дней</option>
+            <option value="90">90 дней</option>
+          </select>
+          <button type="submit" id="load">Показать</button>
+        </div>
+        <p class="note">Токен задаётся на сервере в переменной <code>ADMIN_TOKEN</code> и хранится только в этой вкладке.</p>
+        <div class="status" id="status"></div>
+      </form>
+
+      <section id="result" class="hidden">
+        <div class="cards" id="cards"></div>
+        <div class="panel" style="margin-top: 16px">
+          <h2 style="font-size: 16px; margin: 0 0 8px">По моделям</h2>
+          <table>
+            <thead>
+              <tr><th>Модель</th><th>Запросы</th><th>Ошибки</th><th>Токены</th><th>Ср. время</th></tr>
+            </thead>
+            <tbody id="models"></tbody>
+          </table>
+        </div>
+        <div class="panel">
+          <h2 style="font-size: 16px; margin: 0 0 8px">Расход по пользователям</h2>
+          <table>
+            <thead>
+              <tr><th>Пользователь</th><th>Запросы</th><th>Ошибки</th><th>Токены</th><th>Последний запрос</th></tr>
+            </thead>
+            <tbody id="clients"></tbody>
+          </table>
+        </div>
+        <div class="panel">
+          <h2 style="font-size: 16px; margin: 0 0 8px">Последние запросы</h2>
+          <table>
+            <thead>
+              <tr><th>Время</th><th>Кто</th><th>Модель</th><th>Токены</th><th>Время, мс</th><th>Итог</th></tr>
+            </thead>
+            <tbody id="last"></tbody>
+          </table>
+        </div>
+        <div class="panel" id="vk-panel">
+          <h2 style="font-size: 16px; margin: 0 0 8px">Сообщество ВКонтакте</h2>
+          <div id="vk-body" class="note">Проверяем…</div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const statusEl = $('status');
+      const resultEl = $('result');
+      const fmt = (n) => new Intl.NumberFormat('ru-RU').format(n || 0);
+      /** Имя пользователя или короткий ID — та же логика, что у бота. */
+      function clientLabel(c) {
+        if (c && c.name) return c.name;
+        const id = c && c.id ? String(c.id) : 'без-id';
+        return id === 'без-id' ? 'без имени' : 'ID ' + id.slice(0, 8);
+      }
+      function fmtTime(iso) {
+        if (!iso) return '—';
+        try { return new Date(iso).toLocaleString('ru-RU'); } catch (e) { return iso; }
+      }
+
+      $('token').value = sessionStorage.getItem('tph_admin_token') || '';
+
+      function setStatus(text, isErr) {
+        statusEl.textContent = text || '';
+        statusEl.className = 'status' + (isErr ? ' err' : '');
+      }
+
+      function card(label, value, cls) {
+        return '<div class="card"><div class="label">' + label + '</div><div class="value ' + (cls || '') + '">' + value + '</div></div>';
+      }
+
+      async function loadVk(token) {
+        const body = $('vk-body');
+        try {
+          const res = await fetch('/api/admin/vk', { headers: { Authorization: 'Bearer ' + token } });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) {
+            body.textContent = data.error || 'Сервер вернул ' + res.status + '.';
+            return;
+          }
+          if (!data.configured) {
+            body.textContent = 'Не подключено. Задайте на сервере VK_ACCESS_TOKEN и VK_GROUP_ID, чтобы видеть статистику сообщества.';
+            return;
+          }
+          if (!data.ok) {
+            body.textContent = data.error || 'Не удалось получить данные сообщества.';
+            return;
+          }
+          const info = data.info || {};
+          const st = info.stats || {};
+          const rows = [
+            ['Сообщество', '<a href="' + info.url + '" target="_blank" rel="noopener">' + (info.name || info.screenName) + '</a>'],
+            ['Подписчиков', fmt(info.membersCount)],
+          ];
+          if (st.error) {
+            rows.push(['Статистика', 'недоступна (' + st.error + ') — у токена нет права stats']);
+          } else if (st) {
+            rows.push(['Просмотров за неделю', fmt(st.views)]);
+            rows.push(['Уникальных посетителей', fmt(st.visitors)]);
+            rows.push(['Охват подписчиков', fmt(st.reachSubscribers)]);
+            rows.push(['Лайков / комментариев / репостов', fmt(st.likes) + ' / ' + fmt(st.comments) + ' / ' + fmt(st.reposts)]);
+          }
+          body.innerHTML = '<table><tbody>' + rows.map(([k, v]) =>
+            '<tr><td style="color: var(--muted); width: 40%">' + k + '</td><td>' + v + '</td></tr>').join('') + '</tbody></table>';
+        } catch (e) {
+          body.textContent = 'Не удалось связаться с сервером.';
+        }
+      }
+
+      function render(data) {
+        $('cards').innerHTML = [
+          card('Запросов', fmt(data.total)),
+          card('Успешно', fmt(data.okCount), 'ok'),
+          card('Ошибок', fmt(data.errorCount), data.errorCount ? 'err' : ''),
+          card('Токенов всего', fmt(data.tokens.total_tokens)),
+          card('Prompt', fmt(data.tokens.prompt_tokens)),
+          card('Completion', fmt(data.tokens.completion_tokens)),
+        ].join('');
+
+        const models = Object.entries(data.byModel || {});
+        $('models').innerHTML = models.length
+          ? models
+              .map(([name, m]) =>
+                '<tr><td>' + name + '</td><td class="num">' + fmt(m.requests) + '</td><td class="num">' +
+                fmt(m.error) + '</td><td class="num">' + fmt(m.tokens) + '</td><td class="num">' +
+                fmt(Math.round(m.ms / Math.max(m.requests, 1))) + ' мс</td></tr>'
+              )
+              .join('')
+          : '<tr><td colspan="5" style="color: var(--muted)">За период запросов нет.</td></tr>';
+
+        const clients = data.byClient || [];
+        $('clients').innerHTML = clients.length
+          ? clients
+              .map((c) =>
+                '<tr><td>' + clientLabel(c) + '</td><td class="num">' + fmt(c.requests) + '</td><td class="num">' +
+                fmt(c.error) + '</td><td class="num">' + fmt(c.tokens) + '</td><td>' + fmtTime(c.lastAt) + '</td></tr>'
+              )
+              .join('')
+          : '<tr><td colspan="5" style="color: var(--muted)">За период запросов нет.</td></tr>';
+
+        $('last').innerHTML = (data.last20 || []).length
+          ? data.last20
+              .map((m) => {
+                const when = fmtTime(m.timestamp);
+                const who = clientLabel({ id: m.client && m.client.id, name: m.client && m.client.name });
+                const outcome = m.ok ? '<span style="color: var(--ok)">ок</span>' : '<span style="color: var(--err)">' + (m.code || 'ошибка') + '</span>';
+                return '<tr><td>' + when + '</td><td>' + who + '</td><td>' + m.model + '</td><td class="num">' + fmt(m.usage.total_tokens) +
+                  '</td><td class="num">' + fmt(m.elapsedMs) + '</td><td>' + outcome + '</td></tr>';
+              })
+              .join('')
+          : '<tr><td colspan="6" style="color: var(--muted)">Пока нет записей.</td></tr>';
+
+        resultEl.classList.remove('hidden');
+      }
+
+      async function load() {
+        const token = $('token').value.trim();
+        const days = $('days').value;
+        if (!token) {
+          setStatus('Введите токен администратора.', true);
+          return;
+        }
+        $('load').disabled = true;
+        setStatus('Загружаем…');
+        try {
+          const res = await fetch('/api/admin/stats?days=' + encodeURIComponent(days), {
+            headers: { Authorization: 'Bearer ' + token },
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data.ok) {
+            setStatus(data.error || 'Сервер вернул ' + res.status + '.', true);
+            resultEl.classList.add('hidden');
+            return;
+          }
+          sessionStorage.setItem('tph_admin_token', token);
+          setStatus('Данные на ' + new Date(data.generatedAt).toLocaleString('ru-RU') + '.');
+          render(data);
+          loadVk(token);
+        } catch (e) {
+          setStatus('Не удалось связаться с сервером.', true);
+        } finally {
+          $('load').disabled = false;
+        }
+      }
+
+      $('auth').addEventListener('submit', (e) => {
+        e.preventDefault();
+        load();
+      });
+      if ($('token').value) load();
+    </script>
+  </body>
+</html>

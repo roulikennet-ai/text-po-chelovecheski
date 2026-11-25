@@ -1,0 +1,44 @@
+# ============================================================================
+# docker-compose.yml — запуск «Текст по-человечески» на сервере.
+#
+# 1. Скопируйте .env.deploy.example в .env.deploy и впишите секреты.
+# 2. docker compose --env-file .env.deploy up -d --build
+# 3. Приложение: http://<сервер>:4173
+#    Админ-сводка: http://<сервер>:4173/admin
+#
+# Метрики и аккаунты хранятся в томе tph-data и переживают перезапуск контейнера.
+# ============================================================================
+
+services:
+  tph:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tph:latest
+    container_name: tph
+    restart: unless-stopped
+    ports:
+      - "${PORT:-4173}:4173"
+    environment:
+      HOST: 0.0.0.0
+      PORT: 4173
+      GIGACHAT_AUTH_KEY: ${GIGACHAT_AUTH_KEY:-}
+      GIGACHAT_SCOPE: ${GIGACHAT_SCOPE:-GIGACHAT_API_PERS}
+      GIGACHAT_MODEL: ${GIGACHAT_MODEL:-GigaChat-2}
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      METRICS_FILE: /app/data/metrics.json
+      USERS_FILE: /app/data/users.json
+      NOTIFY_FILE: /app/data/notifications.jsonl
+      VK_ACCESS_TOKEN: ${VK_ACCESS_TOKEN:-}
+      VK_GROUP_ID: ${VK_GROUP_ID:-}
+      VK_GROUP_SCREEN: ${VK_GROUP_SCREEN:-}
+      VK_CONFIRMATION_TOKEN: ${VK_CONFIRMATION_TOKEN:-}
+      VK_SECRET: ${VK_SECRET:-}
+      VK_BOT_ADMINS: ${VK_BOT_ADMINS:-}
+      VK_LONGPOLL_WAIT: ${VK_LONGPOLL_WAIT:-25}
+    volumes:
+      - tph-data:/app/data
+
+volumes:
+  tph-data:

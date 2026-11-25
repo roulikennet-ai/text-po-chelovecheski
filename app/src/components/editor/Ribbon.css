@@ -1,0 +1,135 @@
+/* Ribbon.css — design.md §5.2
+   Лента не прокручивается по горизонтали: группы переносятся на новую
+   строку, а подписи кнопок скрыты — остаются иконки с подсказками. */
+
+.ribbon {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-1) var(--s-3);
+  padding: var(--s-1) var(--s-3);
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.ribbon__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding-right: var(--s-3);
+  border-right: 1px solid var(--line);
+  flex: none;
+  align-self: center;
+}
+
+.ribbon__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.ribbon__logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--r-2);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-doc);
+  font-size: var(--fs-16);
+  font-weight: 600;
+}
+
+.ribbon__logo-text {
+  font-size: var(--fs-13);
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.ribbon__groups {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-1) var(--s-2);
+  flex: 1;
+  min-width: 0;
+}
+
+.ribbon__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 var(--s-2);
+  border-right: 1px solid var(--line);
+  flex: none;
+}
+
+.ribbon__group:last-child {
+  border-right: none;
+}
+
+.ribbon__group-body {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.ribbon__group-label {
+  font-size: var(--fs-11);
+  color: var(--muted-soft);
+  letter-spacing: 0.02em;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* --- Компактные кнопки внутри ленты --- */
+.ribbon .btn--sm {
+  height: var(--click-min);
+  padding: 0 var(--s-3);
+}
+
+.ribbon .icon-btn {
+  width: var(--click-min);
+  height: var(--click-min);
+  min-width: var(--click-min);
+  min-height: var(--click-min);
+}
+
+@media (max-width: 1440px) {
+  .ribbon__logo-text {
+    display: none;
+  }
+}
+
+/* На узких экранах подписи групп и разделители убираются — лента
+   укладывается в два плотных ряда из иконок, и все действия остаются
+   на виду без прокрутки. */
+@media (max-width: 1200px) {
+  .ribbon {
+    gap: var(--s-1) var(--s-2);
+    padding: var(--s-1);
+  }
+
+  .ribbon__brand {
+    border-right: none;
+    padding-right: 0;
+  }
+
+  .ribbon__groups {
+    gap: var(--s-1);
+  }
+
+  .ribbon__group {
+    padding: 0;
+    border-right: none;
+  }
+
+  .ribbon__group-label {
+    display: none;
+  }
+}

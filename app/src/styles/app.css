@@ -1,0 +1,336 @@
+/* ============================================================================
+   app.css — каркас приложения: колонка на всю высоту окна.
+   ========================================================================== */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* Экран проверки сессии и форма входа занимают всю высоту и прокручиваются. */
+.app--boot,
+.app--gate {
+  overflow: auto;
+}
+
+.boot-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-4);
+  color: var(--muted);
+  font-size: var(--fs-14);
+}
+
+.boot-screen__mark {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-3);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: var(--fs-24);
+  font-weight: 700;
+}
+
+.boot-screen__text {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Служебные элементы модалок --- */
+
+.modal__footer-left {
+  margin-right: auto;
+}
+
+.modal-muted {
+  color: var(--muted);
+  font-size: var(--fs-13);
+}
+
+.consent-check {
+  display: flex;
+  gap: var(--s-2);
+  align-items: flex-start;
+  margin-top: var(--s-4);
+  padding: var(--s-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--surface-sunken);
+  font-size: var(--fs-13);
+  cursor: pointer;
+}
+
+.consent-check input {
+  margin-top: 2px;
+  accent-color: var(--accent);
+}
+
+/* --- Первый запуск --- */
+
+.first-run-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+}
+
+.first-run-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--surface);
+  font-size: var(--fs-13);
+  color: var(--muted);
+}
+
+.first-run-card strong {
+  color: var(--ink);
+  font-size: var(--fs-14);
+}
+
+.first-run-card__hint {
+  color: var(--muted-soft);
+  font-size: var(--fs-12);
+}
+
+@media (max-width: 720px) {
+  .first-run-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================================
+   Engine Selector — большие плитки выбора движка
+   ============================================================================ */
+
+.engine-selector {
+  display: flex;
+  flex-direction: column;
+}
+
+.engine-selector__header {
+  padding: var(--s-6) var(--s-6) var(--s-4);
+  text-align: center;
+}
+
+.engine-selector__header h2 {
+  margin: 0 0 var(--s-2);
+  font-size: var(--fs-20);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.engine-selector__header p {
+  margin: 0;
+  font-size: var(--fs-14);
+  color: var(--muted);
+}
+
+.engine-selector__tiles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: 0 var(--s-6) var(--s-5);
+}
+
+.engine-selector__tile {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-4);
+  padding: var(--s-5);
+  border: 2px solid var(--line);
+  border-radius: var(--r-3);
+  background: var(--surface);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  width: 100%;
+  font: inherit;
+}
+
+.engine-selector__tile:hover {
+  border-color: var(--accent-soft);
+  background: var(--surface-sunken);
+  box-shadow: 0 0 0 1px var(--accent-soft);
+}
+
+.engine-selector__tile:active {
+  transform: scale(0.995);
+}
+
+.engine-selector__tile--accent {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
+}
+
+.engine-selector__tile--accent:hover {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.engine-selector__tile-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-2);
+  background: var(--surface-sunken);
+  color: var(--accent);
+}
+
+.engine-selector__tile--accent .engine-selector__tile-icon {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+}
+
+.engine-selector__tile-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  min-width: 0;
+}
+
+.engine-selector__tile-title {
+  font-size: var(--fs-16);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.engine-selector__tile-desc {
+  font-size: var(--fs-13);
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.engine-selector__tile-hint {
+  font-size: var(--fs-12);
+  color: var(--muted-soft);
+  font-style: italic;
+}
+
+.engine-selector__tile-arrow {
+  flex-shrink: 0;
+  margin-top: 8px;
+  color: var(--muted-soft);
+  transition: color 0.15s, transform 0.15s;
+}
+
+.engine-selector__tile:hover .engine-selector__tile-arrow {
+  color: var(--accent);
+  transform: translateX(2px);
+}
+
+.engine-selector__skip {
+  padding: 0 var(--s-6) var(--s-5);
+  text-align: center;
+}
+
+/* --- Переключатель темы --- */
+
+.theme-toggle {
+  position: fixed;
+  top: var(--s-4);
+  right: var(--s-4);
+  z-index: 100;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: color var(--dur-1), border-color var(--dur-1), background var(--dur-1);
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent-soft);
+  background: var(--surface-sunken);
+}
+
+/* --- Выбор модели --- */
+
+.engine-selector__tile-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.engine-selector__model-picker {
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--surface-sunken);
+  font-size: var(--fs-13);
+}
+
+.engine-selector__model-label {
+  display: block;
+  margin-bottom: var(--s-2);
+  font-size: var(--fs-12);
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.engine-selector__model-select {
+  width: 100%;
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-1);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: var(--fs-13);
+  font-family: var(--font-ui);
+  cursor: pointer;
+  transition: border-color var(--dur-1);
+}
+
+.engine-selector__model-select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.engine-selector__model-note {
+  display: block;
+  margin-top: var(--s-2);
+  font-size: var(--fs-11);
+  color: var(--muted-soft);
+  font-style: italic;
+}
+
+@media (min-width: 640px) {
+  .engine-selector__tiles {
+    flex-direction: row;
+  }
+
+  .engine-selector__tile {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .engine-selector__tile-icon {
+    margin-bottom: var(--s-1);
+  }
+
+  .engine-selector__tile-arrow {
+    display: none;
+  }
+}

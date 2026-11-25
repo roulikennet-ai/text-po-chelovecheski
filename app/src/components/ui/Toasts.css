@@ -1,0 +1,84 @@
+/* Toasts.css — design.md §5.11 */
+
+.toasts {
+  position: fixed;
+  right: var(--s-5);
+  bottom: calc(var(--statusbar-h) + var(--s-4));
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  max-width: 420px;
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  box-shadow: var(--sh-2);
+  font-size: var(--fs-13);
+  line-height: 1.45;
+  animation: toast-in var(--dur-2) var(--ease);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.toast__icon {
+  flex: none;
+  margin-top: 1px;
+}
+
+.toast--info .toast__icon {
+  color: var(--accent);
+}
+
+.toast--ok .toast__icon {
+  color: var(--ok);
+}
+
+.toast--warn .toast__icon {
+  color: var(--warn);
+}
+
+.toast--bad .toast__icon {
+  color: var(--bad);
+}
+
+.toast__text {
+  flex: 1;
+  color: var(--ink);
+}
+
+.toast__action {
+  flex: none;
+  color: var(--accent);
+  font-weight: 500;
+  font-size: var(--fs-13);
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.toast__close {
+  flex: none;
+  color: var(--muted-soft);
+  display: inline-flex;
+  padding: 2px;
+  border-radius: var(--r-1);
+}
+
+.toast__close:hover {
+  background: var(--hover-neutral);
+  color: var(--ink);
+}

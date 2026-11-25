@@ -1,0 +1,248 @@
+/* SettingsScreen.css — design.md §6 (E10) */
+
+.set-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4);
+  align-items: start;
+}
+
+.set-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  padding: var(--s-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.set-card__head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  color: var(--ink);
+}
+
+.set-card__title {
+  font-size: var(--fs-16);
+  font-weight: 600;
+  flex: 1;
+}
+
+.set-card__desc {
+  font-size: var(--fs-13);
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.set-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.set-actions {
+  display: flex;
+  gap: var(--s-2);
+  justify-content: flex-end;
+}
+
+.set-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-2);
+  font-size: var(--fs-12);
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* Иконка не сжимается, текст занимает остаток строки. */
+.set-hint > svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+.set-hint > span {
+  flex: 1;
+  min-width: 0;
+}
+
+.engine-switch--wide {
+  width: 100%;
+}
+
+.engine-switch--wide .engine-opt {
+  height: 40px;
+  font-size: var(--fs-13);
+}
+
+.set-slider {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.set-slider__label {
+  font-size: var(--fs-13);
+  color: var(--muted);
+}
+
+.set-slider__label strong {
+  color: var(--ink);
+}
+
+.set-range {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.set-slider__preview {
+  font-family: var(--font-doc);
+  line-height: 1.6;
+  color: var(--ink);
+  padding: var(--s-3);
+  background: var(--surface-sunken);
+  border-radius: var(--r-2);
+  border-left: 3px solid var(--accent);
+}
+
+@media (max-width: 1100px) {
+  .set-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Результат проверки подключения GigaChat */
+.set-check {
+  display: flex;
+  gap: var(--s-2);
+  align-items: flex-start;
+  padding: var(--s-3);
+  border-radius: var(--r-2);
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.set-check svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+.set-check--ok {
+  background: var(--ok-soft, #e8f5ec);
+  color: var(--ok-ink, #1f6b3c);
+}
+
+.set-check--bad {
+  background: var(--bad-soft, #fdeaea);
+  color: var(--bad-ink, #8a2020);
+}
+
+.set-hint code {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.92em;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--surface-sunken);
+}
+
+/* ---- Карточка «Локальная модель» (GGUF) ---- */
+.set-card--wide {
+  grid-column: 1 / -1;
+}
+
+.set-presets {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.set-preset {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+
+.set-preset:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.set-preset--active {
+  border-color: var(--accent);
+  background: var(--accent-soft, #eef3fb);
+}
+
+.set-preset:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.set-preset__name {
+  font-size: var(--fs-13);
+  font-weight: 600;
+}
+
+.set-preset__meta {
+  font-size: var(--fs-12);
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.set-progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+.set-progress__bar {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-sunken);
+  overflow: hidden;
+}
+
+.set-progress__fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.set-progress__text {
+  font-size: var(--fs-12);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.set-actions--start {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Поле выбора файла не показываем — кнопка открывает его программно. */
+.set-file {
+  display: none;
+}
+
+.set-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+}

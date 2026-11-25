@@ -1,0 +1,24 @@
+{
+  "name": "int-coda-code",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Корневые скрипты-пробросы в app/",
+  "scripts": {
+    "start": "npm --prefix app run dev",
+    "dev": "npm --prefix app run dev",
+    "build": "npm --prefix app run build",
+    "preview": "npm --prefix app run preview",
+    "typecheck": "npm --prefix app run typecheck",
+    "web": "npm --prefix app run web",
+    "web:build": "npm --prefix app run web:build",
+    "smoke": "npm --prefix app run smoke",
+    "probe": "npm --prefix app run probe",
+    "abort-check": "npm --prefix app run abort-check",
+    "batch-check": "npm --prefix app run batch-check",
+    "engine-check": "npm --prefix app run engine-check",
+    "app:dev": "npm --prefix app run app:dev",
+    "app:build": "npm --prefix app run app:build",
+    "install:app": "npm --prefix app install",
+    "vkbot": "npm --prefix app run vkbot"
+  }
+}

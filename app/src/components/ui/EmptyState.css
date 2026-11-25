@@ -1,0 +1,51 @@
+/* EmptyState.css — design.md §6, §8.2 */
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--s-4);
+  padding: var(--s-9) var(--s-6);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.empty--compact {
+  padding: var(--s-7) var(--s-5);
+}
+
+.empty__art {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: var(--s-2);
+}
+
+.empty__title {
+  font-size: var(--fs-24);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+  max-width: 26ch;
+}
+
+.empty--compact .empty__title {
+  font-size: var(--fs-18);
+}
+
+.empty__desc {
+  font-size: var(--fs-14);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 48ch;
+}
+
+.empty__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--s-2);
+}

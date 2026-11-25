@@ -1,0 +1,68 @@
+/* StatusBar.css — design.md §5.12 */
+
+.statusbar {
+  height: var(--statusbar-h);
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding: 0 var(--s-4);
+  background: var(--surface-sunken);
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-12);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+}
+
+.statusbar__group {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  white-space: nowrap;
+}
+
+.statusbar__sep {
+  width: 1px;
+  height: 12px;
+  background: var(--line-strong);
+}
+
+.statusbar__spacer {
+  flex: 1;
+}
+
+.statusbar__pending {
+  color: var(--warn);
+}
+
+.statusbar__ok {
+  color: var(--ok);
+}
+
+.statusbar__spin {
+  animation: spin 1s linear infinite;
+}
+
+.statusbar__paused {
+  color: var(--warn);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1100px) {
+  .statusbar {
+    gap: var(--s-3);
+    padding: 0 var(--s-2);
+  }
+}
+
+@media (max-width: 900px) {
+  .statusbar__group:nth-child(2) {
+    display: none;
+  }
+}

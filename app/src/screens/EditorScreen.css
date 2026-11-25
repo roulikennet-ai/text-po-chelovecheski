@@ -1,0 +1,369 @@
+/* EditorScreen.css — каркас E1 (design.md §4.2) */
+
+.workspace {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.workspace__panel {
+  flex: none;
+  display: flex;
+  min-height: 0;
+  transition: margin-left var(--dur-2) var(--ease);
+}
+
+.workspace__panel--hidden {
+  margin-left: calc(-1 * var(--panel-w));
+}
+
+.workspace__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  position: relative;
+}
+
+.workspace__empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: var(--s-6);
+}
+
+/* --- Поиск --- */
+.searchbar {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-2) var(--s-4);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.searchbar .field {
+  flex: 1;
+  max-width: 420px;
+}
+
+.searchbar__count {
+  font-size: var(--fs-12);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Баннеры --- */
+.banner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-2) var(--s-4);
+  font-size: var(--fs-13);
+  border-bottom: 1px solid var(--line);
+  flex: none;
+}
+
+.banner--info {
+  background: var(--accent-soft);
+  color: var(--accent-active);
+}
+
+.banner--protect {
+  background: var(--surface-sunken);
+  color: var(--muted);
+}
+
+.banner--progress {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+.banner--done {
+  background: var(--ok-bg);
+  color: var(--ok);
+}
+
+.banner--warn {
+  background: var(--warn-bg);
+  color: var(--warn);
+}
+
+.banner--bad {
+  background: var(--bad-bg);
+  color: var(--bad);
+}
+
+.banner__link {
+  margin-left: auto;
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.banner__bar {
+  flex: 1;
+  max-width: 320px;
+  height: 4px;
+  background: var(--surface);
+  border-radius: var(--r-full);
+  overflow: hidden;
+}
+
+.banner__fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width var(--dur-3) linear;
+}
+
+.banner__spin {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--accent-hover);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- Вставка текста --- */
+.paste-area {
+  width: 100%;
+  min-height: 240px;
+  padding: var(--s-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-2);
+  font-family: var(--font-doc);
+  font-size: var(--fs-16);
+  line-height: 1.6;
+  resize: vertical;
+  outline: none;
+}
+
+.paste-area:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.paste-meta {
+  display: flex;
+  gap: var(--s-4);
+  font-size: var(--fs-12);
+  color: var(--muted);
+}
+
+/* --- Панель точечного режима --- */
+.spot {
+  position: absolute;
+  right: var(--s-5);
+  bottom: var(--s-5);
+  width: min(560px, calc(100% - var(--s-8)));
+  max-height: 70vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border-radius: var(--r-3);
+  box-shadow: var(--sh-2);
+  padding: var(--s-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  z-index: 30;
+  animation: spot-in var(--dur-2) var(--ease);
+}
+
+@keyframes spot-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.spot__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+}
+
+.spot__title {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--fs-14);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.spot__timer {
+  font-size: var(--fs-12);
+  font-weight: 400;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.spot__source {
+  font-family: var(--font-doc);
+  font-size: var(--fs-13);
+  color: var(--muted);
+  line-height: 1.5;
+  padding: var(--s-2) var(--s-3);
+  background: var(--surface-sunken);
+  border-radius: var(--r-2);
+  border-left: 2px solid var(--line-strong);
+}
+
+.spot__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.spot__skeleton-line {
+  height: 12px;
+  border-radius: var(--r-1);
+  background: var(--surface-sunken);
+}
+
+.spot__skeleton-line--short {
+  width: 60%;
+}
+
+.spot__muted {
+  font-size: var(--fs-12);
+  color: var(--muted);
+}
+
+.spot__timeout {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+  padding: var(--s-2);
+  background: var(--warn-bg);
+  color: var(--warn);
+  border-radius: var(--r-2);
+  font-size: var(--fs-12);
+}
+
+.spot__variant {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+}
+
+.spot__variant-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.spot__variant-text {
+  font-family: var(--font-doc);
+  font-size: var(--fs-16);
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.spot__variant-actions {
+  display: flex;
+  gap: var(--s-2);
+}
+
+/* --- Демонстрация уровней --- */
+.level-demo {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  background: var(--surface-sunken);
+  border-radius: var(--r-2);
+}
+
+.level-demo > div {
+  flex: 1;
+}
+
+.level-demo__label {
+  font-size: var(--fs-11);
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.level-demo p {
+  font-family: var(--font-doc);
+  font-size: var(--fs-13);
+  line-height: 1.5;
+  color: var(--ink);
+  margin-top: var(--s-1);
+}
+
+.level-demo__arrow {
+  color: var(--muted-soft);
+  flex: none;
+}
+
+/* design.md §6.3: при ширине < 1200 px панель настроек становится
+   выдвижной поверх документа (оверлей 320 px), а не отнимает место. */
+@media (max-width: 1200px) {
+  .workspace__panel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 30;
+    width: var(--panel-w);
+    background: var(--paper);
+    box-shadow: var(--sh-2);
+    transition: transform var(--dur-2) var(--ease);
+  }
+
+  .workspace__panel--hidden {
+    margin-left: 0;
+    transform: translateX(-100%);
+    box-shadow: none;
+  }
+}
+
+/* Затемнение под выдвижной панелью */
+.workspace__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  border: 0;
+  padding: 0;
+  background: rgb(31 42 56 / 0.28);
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .spot {
+    right: var(--s-3);
+    left: var(--s-3);
+    bottom: var(--s-3);
+    width: auto;
+  }
+
+  .level-demo {
+    flex-direction: column;
+  }
+}

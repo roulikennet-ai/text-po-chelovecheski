@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Доска проекта — Текст по-человечески</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f4f1ec;
+    --card: #ffffff;
+    --ink: #1c1a17;
+    --muted: #6b655c;
+    --line: #e2dcd2;
+    --accent: #b4501f;
+    --ok: #1a7a42;
+    --warn: #a87400;
+    --err: #b3261e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px 24px 64px;
+    font: 15px/1.55 "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--ink);
+  }
+  .wrap { max-width: 1240px; margin: 0 auto; }
+  header { margin-bottom: 28px; }
+  h1 { font-size: 28px; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .lead { color: var(--muted); margin: 0; max-width: 780px; }
+  .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .badge {
+    font-size: 12.5px; font-weight: 600; padding: 4px 10px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--card);
+  }
+  .badge.ok { color: var(--ok); border-color: #b9dcc6; background: #f0faf3; }
+  .badge.warn { color: var(--warn); border-color: #ecd9a8; background: #fdf8e9; }
+  .badge.err { color: var(--err); border-color: #f0c2be; background: #fdf1f0; }
+
+  h2 { font-size: 17px; margin: 34px 0 12px; letter-spacing: -0.01em; }
+  .grid { display: grid; gap: 16px; }
+  .grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 18px; box-shadow: 0 1px 2px rgba(28,26,23,.04);
+  }
+  .card h3 { margin: 0 0 10px; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+  .card p { margin: 0 0 8px; color: var(--muted); font-size: 14px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); font-size: 14px; }
+  .card li { margin-bottom: 5px; }
+  .card li b { color: var(--ink); font-weight: 600; }
+
+  .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .dot.ok { background: var(--ok); }
+  .dot.warn { background: var(--warn); }
+  .dot.err { background: var(--err); }
+
+  .shot { margin: 0; }
+  .shot img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line); }
+  .shot figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  tr:last-child td { border-bottom: 0; }
+  code { background: #f2ede5; padding: 1px 5px; border-radius: 4px; font-size: 12.5px; }
+  .kpi { display: flex; gap: 26px; flex-wrap: wrap; }
+  .kpi div { min-width: 110px; }
+  .kpi .n { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .kpi .l { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  footer { margin-top: 40px; font-size: 13px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Доска проекта: сообщество ВК, учёт токенов, деплой</h1>
+    <p class="lead">
+      Итоги этапа: приложение подготовлено к публикации, добавлен учёт запросов и расхода токенов
+      для администратора, подготовлена интеграция с сообществом ВКонтакте. Ниже — что проверено,
+      что осталось заблокированным и почему.
+    </p>
+    <div class="badges">
+      <span class="badge ok">Учёт токенов — работает</span>
+      <span class="badge ok">Админ-сводка — работает</span>
+      <span class="badge ok">Деплой-конфиг — готов</span>
+      <span class="badge warn">Публикация — нужен сервер</span>
+      <span class="badge warn">ВК — нужен токен</span>
+      <span class="badge err">Регистрация — не реализована</span>
+    </div>
+  </header>
+
+  <h2>Что сделано</h2>
+  <div class="grid cols-3">
+    <div class="card">
+      <h3><span class="dot ok"></span> Учёт запросов и токенов</h3>
+      <p>Каждый запрос к GigaChat пишет метрику: модель, prompt/completion/total токены, время ответа, успех или код ошибки, длина текста в символах.</p>
+      <ul>
+        <li><b>Не сохраняется:</b> текст документа, промпты, ответы модели</li>
+        <li>Запись атомарная (temp + rename), файл <code>app/data/metrics.json</code></li>
+        <li>Проверено на реальном запросе: 87 / 75 / 162 токена</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="dot ok"></span> Админ-сводка</h3>
+      <p>Страница <code>/admin</code> и API <code>/api/admin/stats?days=7</code> за Bearer-токеном из <code>ADMIN_TOKEN</code>.</p>
+      <ul>
+        <li>Карточки: запросы, успешно, ошибки, токены</li>
+        <li>Разбивка по моделям и последние 20 запросов</li>
+        <li>Без токена — 401; без настройки — 503</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="dot ok"></span> Интеграция с ВК</h3>
+      <p>Серверный модуль <code>server/vk.mjs</code>: статистика сообщества и Callback API.</p>
+      <ul>
+        <li>Подписчики, просмотры, охват за неделю</li>
+        <li>Callback: подтверждение сервера и проверка секрета</li>
+        <li>Без токена блок показывает «Не подключено», приложение работает</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="dot ok"></span> Деплой</h3>
+      <p>Готовы <code>Dockerfile</code>, <code>docker-compose.yml</code>, <code>.env.deploy.example</code>, инструкция <code>DEPLOY.md</code>.</p>
+      <ul>
+        <li>Многоэтапная сборка, непривилегированный запуск, healthcheck</li>
+        <li>Метрики в томе <code>tph-data</code></li>
+        <li>Вариант без Docker: systemd</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="dot ok"></span> Основной сценарий</h3>
+      <p>Проверен вживую: вставка текста → защита → облако → GigaChat → сравнение «было/стало».</p>
+      <ul>
+        <li>Защищено 8 фрагментов: 4 числа, 1 имя, 1 аббревиатура, 2 источника</li>
+        <li>После переписывания все числа и ссылки на месте</li>
+        <li>0 ошибок в консоли</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="dot ok"></span> Исправленные ошибки</h3>
+      <p>По ходу проверки найдено и исправлено:</p>
+      <ul>
+        <li><b>Утечка ключа:</b> в <code>.env.example</code> лежал настоящий ключ GigaChat — заменён на пустое поле</li>
+        <li><b>Ложная ошибка API:</b> поле <code>ok</code> перезаписывалось числом успешных запросов; теперь <code>okCount</code> / <code>errorCount</code></li>
+        <li>В предупреждении M1 значился <code>gpt-4o-mini</code> вместо GigaChat</li>
+        <li>В плитке «Облако» — только имя модели без провайдера</li>
+        <li><code>API/</code> с ключом не был в <code>.gitignore</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Скриншоты</h2>
+  <div class="grid cols-2">
+    <figure class="shot">
+      <img src="__ADMIN_IMG__" alt="Админ-сводка с данными" />
+      <figcaption>Админ-сводка: 6 запросов, 4 успешных, 2 ошибки, 1507 токенов; разбивка по моделям и блок ВК.</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="__ENGINE_IMG__" alt="Стартовое окно выбора движка" />
+      <figcaption>Стартовое окно: выбор локальной модели и провайдер облака «GigaChat · GigaChat-2» после исправления.</figcaption>
+    </figure>
+  </div>
+
+  <h2>Проверки</h2>
+  <div class="card">
+    <div class="kpi">
+      <div><div class="n">200 / 401 / 503</div><div class="l">коды админ-API</div></div>
+      <div><div class="n">4</div><div class="l">VK-эндпоинта</div></div>
+      <div><div class="n">0</div><div class="l">ошибок в консоли</div></div>
+      <div><div class="n">8</div><div class="l">защищённых фрагментов</div></div>
+    </div>
+  </div>
+
+  <h2>Ограничения и что нужно от вас</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3><span class="dot warn"></span> Публикация на сервере</h3>
+      <p>Нет доступа к серверу, домену и DNS, Docker на машине не установлен. Прод-сборка и админка проверены локально, Docker-образ не собирался.</p>
+      <p><b>Нужно:</b> VPS с Docker (или Node 20+), домен для HTTPS, доступ по SSH.</p>
+    </div>
+    <div class="card">
+      <h3><span class="dot warn"></span> Сообщество ВКонтакте</h3>
+      <p>Нет токена сообщества и его ID. Код готов, но реальный VK API не вызывался — проверены только обработка ошибок и Callback с фиктивным токеном.</p>
+      <p><b>Нужно:</b> токен с правами <code>groups</code>, <code>stats</code>; ID сообщества; строка подтверждения Callback API.</p>
+    </div>
+    <div class="card">
+      <h3><span class="dot err"></span> Регистрация и вход</h3>
+      <p>В приложении нет аккаунтов: проекты лежат в <code>localStorage</code>. ТЗ требует имя, телефон и пароль, но это отдельный объём работы (серверная БД, сессии, хеширование).</p>
+      <p><b>Решение:</b> не реализовывал, чтобы не выдавать неготовое за готовое.</p>
+    </div>
+    <div class="card">
+      <h3><span class="dot warn"></span> Прочее</h3>
+      <p>Ограничения из прошлых этапов остаются: F3 не подключён в пайплайне, SQLite вместо localStorage, недельный лимит без жёсткой блокировки, профиль стиля не передаётся как few-shot.</p>
+      <p>Многопоточность wllama в Tauri не работает: протокол <code>tauri://</code> не отдаёт COOP/COEP.</p>
+    </div>
+  </div>
+
+  <footer>
+    Доска собрана по результатам этапа. Технические детали — в <code>DEPLOY.md</code> и <code>app/WEB_README.md</code>.
+    Секреты на доску не выносятся: ключи и токены задаются только в конфигурации сервера.
+  </footer>
+</div>
+</body>
+</html>

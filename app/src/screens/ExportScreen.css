@@ -1,0 +1,185 @@
+/* ExportScreen.css — design.md §6 (E9) */
+
+.export-warn {
+  display: flex;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: var(--bad-bg);
+  border: 1px solid var(--bad);
+  border-radius: var(--r-3);
+  color: var(--bad);
+  margin-bottom: var(--s-4);
+}
+
+.export-warn strong {
+  display: block;
+  font-size: var(--fs-14);
+}
+
+.export-warn p {
+  font-size: var(--fs-13);
+  color: var(--muted);
+  margin-top: var(--s-1);
+  line-height: 1.5;
+}
+
+.export-formats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--s-3);
+  margin-bottom: var(--s-5);
+}
+
+.export-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  padding: var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  text-align: left;
+  transition:
+    border-color var(--dur-1) var(--ease),
+    background-color var(--dur-1) var(--ease);
+}
+
+.export-card:hover {
+  background: var(--hover-neutral);
+}
+
+.export-card--active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.export-card__icon {
+  color: var(--accent);
+  margin-bottom: var(--s-1);
+}
+
+.export-card__name {
+  font-size: var(--fs-16);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.export-card__desc {
+  font-size: var(--fs-12);
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.export-card__bullets {
+  margin-top: var(--s-2);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.export-card__bullets li {
+  font-size: var(--fs-12);
+  color: var(--muted);
+  padding-left: var(--s-3);
+  position: relative;
+  line-height: 1.4;
+}
+
+.export-card__bullets li::before {
+  content: '·';
+  position: absolute;
+  left: var(--s-1);
+  color: var(--accent);
+}
+
+.export-preview {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  overflow: hidden;
+  margin-bottom: var(--s-5);
+}
+
+.export-preview__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: var(--surface-sunken);
+  border-bottom: 1px solid var(--line);
+}
+
+.export-preview__title {
+  font-size: var(--fs-13);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.export-preview__note {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  font-size: var(--fs-12);
+  color: var(--muted);
+}
+
+.export-preview__sheet {
+  padding: var(--s-5) var(--s-6);
+  max-height: 380px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.export-preview__p {
+  font-family: var(--font-doc);
+  font-size: var(--fs-14);
+  line-height: 1.6;
+  color: var(--ink);
+  text-align: justify;
+}
+
+.export-preview__p--heading {
+  font-weight: 600;
+  font-size: var(--fs-16);
+  text-align: left;
+}
+
+.export-preview__p--list-item {
+  padding-left: var(--s-4);
+  position: relative;
+}
+
+.export-preview__p--list-item::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--muted-soft);
+}
+
+.export-preview__more {
+  font-size: var(--fs-12);
+  color: var(--muted);
+  font-style: italic;
+}
+
+.export-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.export-bad-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  padding-left: var(--s-4);
+  list-style: disc;
+}
+
+.export-bad-list li {
+  font-size: var(--fs-13);
+  color: var(--muted);
+  line-height: 1.45;
+}

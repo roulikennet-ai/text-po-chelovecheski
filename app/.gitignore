@@ -1,0 +1,42 @@
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vite/
+
+# Секреты: ключи API живут только локально
+.env
+.env.*
+!.env.example
+
+# Tauri
+src-tauri/target/
+src-tauri/gen/
+
+# Иконка-исходник (пересобирается через `npm run icon`)
+app-icon.png
+
+# Редакторы и ОС
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+
+# Смоук-тест и диагностика
+.smoke.mjs
+.smoke.out.txt
+.probe.mjs
+.probe.out.txt
+.abort-check.mjs
+.batch-check.mjs
+.engine-check.mjs
+.preview.log
+nul
+
+# Локальные модели (скачиваются пользователем, не коммитим)
+public/models/*.gguf
+
+# Метрики и данные пользователей (персональные данные не коммитим)
+data/

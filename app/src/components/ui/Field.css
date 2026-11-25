@@ -1,0 +1,147 @@
+/* Field.css — design.md §5.5 */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  min-width: 0;
+}
+
+.field__label {
+  font-size: var(--fs-12);
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.field__control {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  height: 40px;
+  padding: 0 var(--s-3);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-2);
+  transition: border-color var(--dur-1) var(--ease);
+}
+
+.field__control:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.field__control--error {
+  border-color: var(--bad);
+}
+
+.field__icon {
+  display: inline-flex;
+  color: var(--muted-soft);
+  flex: none;
+}
+
+.field__input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: var(--fs-14);
+  color: var(--ink);
+}
+
+.field__input::placeholder {
+  color: var(--muted-soft);
+}
+
+.field__textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: var(--s-3);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-2);
+  font-size: var(--fs-14);
+  line-height: 1.5;
+  color: var(--ink);
+  resize: vertical;
+  outline: none;
+}
+
+.field__textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.field__hint {
+  font-size: var(--fs-12);
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.field__error {
+  font-size: var(--fs-12);
+  color: var(--bad);
+  line-height: 1.4;
+}
+
+/* --- Toggle --- */
+.toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  cursor: pointer;
+}
+
+.toggle--disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.toggle__switch {
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 24px;
+  border-radius: var(--r-full);
+  background: var(--line-strong);
+  transition: background-color var(--dur-2) var(--ease);
+  margin-top: 1px;
+}
+
+.toggle__switch--on {
+  background: var(--accent);
+}
+
+.toggle__thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--sh-1);
+  transition: transform var(--dur-2) var(--ease);
+}
+.toggle__switch--on .toggle__thumb {
+  transform: translateX(16px);
+}
+
+.toggle__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.toggle__label {
+  font-size: var(--fs-14);
+  color: var(--ink);
+}
+
+.toggle__desc {
+  font-size: var(--fs-12);
+  color: var(--muted);
+  line-height: 1.4;
+}

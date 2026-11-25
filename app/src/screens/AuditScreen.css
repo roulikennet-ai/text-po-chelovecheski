@@ -1,0 +1,93 @@
+/* AuditScreen.css — design.md §5.7, §6 (E11) */
+
+.audit-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+
+.audit-bar .field {
+  flex: 1;
+  max-width: 420px;
+}
+
+.audit-table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  overflow: auto;
+}
+
+.audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-12);
+  min-width: 760px;
+}
+
+.audit-table th {
+  text-align: left;
+  font-size: var(--fs-11);
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  background: var(--surface-sunken);
+  height: 34px;
+  padding: 0 var(--s-3);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+}
+
+.audit-table td {
+  padding: var(--s-2) var(--s-3);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  vertical-align: top;
+}
+
+.audit-table tbody tr:nth-child(even) {
+  background: #fcfbf9;
+}
+
+.audit-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.audit-table__time {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.audit-table__obj {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.audit-table__hash {
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  color: var(--muted-soft);
+  background: var(--surface-sunken);
+  border-radius: var(--r-1);
+  padding: 0 4px;
+}
+
+.audit-table__param {
+  color: var(--muted);
+  max-width: 260px;
+}
+
+.audit-table__empty {
+  text-align: center;
+  color: var(--muted);
+  padding: var(--s-6) !important;
+}
+
+.audit-row--error {
+  background: var(--bad-bg) !important;
+}

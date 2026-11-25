@@ -1,0 +1,141 @@
+/* ============================================================================
+   tokens.css — единый источник истины по дизайну (design.md §2.5).
+   Любое значение цвета/отступа вне этого файла — ошибка дизайна.
+   ========================================================================== */
+
+:root {
+  /* --- Ядро: 3 базовых цвета (design.md §2.1) --- */
+  --ink: #1f2a38;
+  --accent: #b4531f;
+  --paper: #f7f5f1;
+
+  /* --- Производные --- */
+  --surface: #ffffff;
+  --surface-sunken: #efede7;
+  --line: #dcd8d0;
+  --line-strong: #b9b3a8;
+  --muted: #5c6672;
+  --muted-soft: #8a93a0;
+  --hover-neutral: rgba(31, 42, 56, 0.08);
+  --accent-soft: #f6eae1;
+  --accent-hover: #eedacb;
+  --accent-active: #93401a;
+
+  /* --- Статусы: только E4/E5/S-состояния (§2.3) --- */
+  --ok: #2e7d4f;
+  --ok-bg: #e7f1ea;
+  --warn: #a65a00;
+  --warn-bg: #fbf0df;
+  --bad: #b3261e;
+  --bad-bg: #fbe9e7;
+
+  /* --- Маркеры правок (§2.4) --- */
+  --mark-added: #eaf3e9;
+  --mark-removed: #f6e1de;
+  --mark-protected: #f0efea;
+
+  /* --- Типографика (§3) --- */
+  --font-ui: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-doc: 'Literata', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  --fs-11: 11px;
+  --fs-12: 12px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-16: 16px;
+  --fs-18: 18px;
+  --fs-20: 20px;
+  --fs-24: 24px;
+  --fs-30: 30px;
+
+  /* Документ: регулируемый размер (FR-11.1) */
+  --doc-size: 17px;
+  --doc-leading: 1.65;
+  --doc-size-min: 16px;
+  --doc-size-max: 24px;
+
+  /* --- Отступы: база 4 (§4.1) --- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+
+  /* --- Радиусы --- */
+  --r-1: 4px;
+  --r-2: 6px;
+  --r-3: 10px;
+  --r-full: 999px;
+
+  /* --- Тени: только плавающие слои --- */
+  --sh-1: 0 1px 2px rgba(31, 42, 56, 0.06);
+  --sh-2: 0 2px 8px rgba(31, 42, 56, 0.1);
+  --sh-3: 0 12px 32px rgba(31, 42, 56, 0.18);
+
+  /* --- Метрики каркаса (§4.2) --- */
+  /* Лента теперь переносит группы на новую строку, поэтому её высота
+     зависит от ширины окна. Значение используется только как отступ
+     для выдвижной панели на узких экранах. */
+  --ribbon-h: 64px;
+  --panel-w: 320px;
+  --panel-w-narrow: 280px;
+  --statusbar-h: 32px;
+  --col-gap: 32px;
+  --doc-max-w: 720px;
+  --click-min: 32px;
+
+  /* --- Движение (§11) --- */
+  --dur-1: 120ms;
+  --dur-2: 180ms;
+  --dur-3: 240ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* --- Z-слои --- */
+  --z-panel: 40;
+  --z-overlay: 60;
+  --z-modal: 70;
+  /* Тост выше затемнения, но ниже модалки: уведомление видно,
+     но не перекрывает кнопки диалога. */
+  --z-toast: 65;
+}
+
+/* ============================================================================
+   Тёмная тема — все цвета инвертированы
+   ============================================================================ */
+
+:root.dark {
+  --ink: #e8e4de;
+  --accent: #d98a55;
+  --paper: #1a1a1e;
+
+  --surface: #232328;
+  --surface-sunken: #1c1c20;
+  --line: #3a3a40;
+  --line-strong: #4e4e56;
+  --muted: #8a93a0;
+  --muted-soft: #6b7482;
+  --hover-neutral: rgba(232, 228, 222, 0.06);
+  --accent-soft: #3d2a1a;
+  --accent-hover: #2f2015;
+  --accent-active: #e8a87c;
+
+  --ok: #4ade80;
+  --ok-bg: #1a2e20;
+  --warn: #fbbf24;
+  --warn-bg: #2e2510;
+  --bad: #f87171;
+  --bad-bg: #2e1a1a;
+
+  --mark-added: #1a2e20;
+  --mark-removed: #2e1a1a;
+  --mark-protected: #2a2a2e;
+
+  --sh-1: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --sh-2: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --sh-3: 0 12px 32px rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,42 @@
+{
+  "name": "text-po-chelovecheski",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Текст по-человечески — редактор научного текста с гарантией неизменяемого",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "web": "node server/index.mjs",
+    "web:build": "npm run build && node server/index.mjs",
+    "smoke": "esbuild scripts/smoke.ts --bundle --platform=node --format=esm --outfile=.smoke.mjs --log-level=warning && node .smoke.mjs",
+    "probe": "esbuild scripts/probe.ts --bundle --platform=node --format=esm --outfile=.probe.mjs --log-level=warning && node .probe.mjs",
+    "abort-check": "esbuild scripts/abort-check.ts --bundle --platform=node --format=esm --outfile=.abort-check.mjs --log-level=warning && node .abort-check.mjs",
+    "batch-check": "esbuild scripts/batch-check.ts --bundle --platform=node --format=esm --outfile=.batch-check.mjs --log-level=warning && node .batch-check.mjs",
+    "engine-check": "esbuild scripts/engine-check.ts --bundle --platform=node --format=esm --outfile=.engine-check.mjs --log-level=warning && node .engine-check.mjs",
+    "icon": "node scripts/make-icon.mjs && tauri icon app-icon.png",
+    "tauri": "tauri",
+    "app:dev": "tauri dev",
+    "app:build": "tauri build",
+    "vkbot": "node server/vkbot.mjs"
+  },
+  "dependencies": {
+    "@wllama/wllama": "^4.0.0",
+    "lucide-react": "^0.462.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.6",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  },
+  "allowScripts": {
+    "esbuild@0.21.5": true
+  }
+}

@@ -1,0 +1,231 @@
+/* ============================================================================
+   CompareView.css — design.md §4.3: три колонки, один вертикальный скролл.
+   ========================================================================== */
+
+.cmp {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.cmp__head {
+  flex: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr);
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-5) var(--s-2);
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.cmp__col-title {
+  font-size: var(--fs-11);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+}
+
+.cmp__col-title--mid {
+  text-align: center;
+}
+
+.cmp__body {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--s-4) var(--s-5) var(--s-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+/* --- Строка абзаца --- */
+
+.cmp__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr);
+  width: 100%;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-2);
+  border-radius: var(--r-2);
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.cmp__row:hover {
+  background: var(--hover-neutral);
+}
+
+.cmp__row--focused {
+  background: var(--accent-soft);
+  border-left-color: var(--accent);
+}
+
+.cmp__row--accepted .cmp__cell--result {
+  background: var(--ok-bg);
+  border-radius: var(--r-2);
+}
+
+.cmp__cell {
+  min-width: 0;
+  padding: var(--s-2) var(--s-3);
+}
+
+.cmp__cell--result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  background: var(--surface);
+  border-radius: var(--r-2);
+  box-shadow: var(--sh-1);
+}
+
+.cmp__text {
+  font-family: var(--font-doc);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cmp__text--heading {
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.cmp__text--quote {
+  font-style: italic;
+  color: var(--muted);
+}
+
+.cmp__unchanged {
+  color: var(--muted-soft);
+  font-style: italic;
+  font-size: var(--fs-13);
+  font-family: var(--font-ui);
+}
+
+/* --- Перемычка с действиями --- */
+
+.cmp__gutter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-1);
+  padding-top: var(--s-1);
+}
+
+.cmp__gutter-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface-sunken);
+  color: var(--muted);
+  font-size: var(--fs-11);
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cmp__row--focused .cmp__gutter-num {
+  background: var(--accent);
+  color: #fff;
+}
+
+.cmp__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: center;
+  margin-top: var(--s-1);
+}
+
+.cmp__act {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--r-1);
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cmp__act:hover {
+  background: var(--hover-neutral);
+  color: var(--ink);
+}
+
+.cmp__act--on {
+  color: var(--ok);
+  background: var(--ok-bg);
+}
+
+/* --- Варианты --- */
+
+.cmp__variants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+}
+
+.cmp__variant {
+  font-size: var(--fs-11);
+  padding: 2px var(--s-2);
+  border-radius: var(--r-full);
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--muted);
+  font-family: var(--font-ui);
+}
+
+.cmp__variant:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.cmp__variant--active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-active);
+  font-weight: 600;
+}
+
+/* --- Узкий экран: колонки в стопку --- */
+
+@media (max-width: 900px) {
+  .cmp__head {
+    grid-template-columns: 1fr;
+    gap: var(--s-1);
+  }
+
+  .cmp__col-title--mid,
+  .cmp__head .cmp__col-title:last-child {
+    display: none;
+  }
+
+  .cmp__row {
+    grid-template-columns: 1fr;
+    gap: var(--s-2);
+  }
+
+  .cmp__gutter {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .cmp__actions {
+    flex-direction: row;
+    margin-top: 0;
+  }
+}

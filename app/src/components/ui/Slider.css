@@ -1,0 +1,120 @@
+/* Slider.css — design.md §5.4 */
+
+.slider {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.slider__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.slider__value {
+  font-size: var(--fs-13);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.slider__input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 20px;
+  background: transparent;
+  cursor: pointer;
+  margin: 0;
+}
+
+.slider__input:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Track */
+.slider__input::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: var(--r-full);
+  background: linear-gradient(
+    to right,
+    var(--accent) 0,
+    var(--accent) var(--fill, 50%),
+    var(--surface-sunken) var(--fill, 50%),
+    var(--surface-sunken) 100%
+  );
+}
+
+.slider__input::-moz-range-track {
+  height: 4px;
+  border-radius: var(--r-full);
+  background: var(--surface-sunken);
+}
+
+.slider__input::-moz-range-progress {
+  height: 4px;
+  border-radius: var(--r-full);
+  background: var(--accent);
+}
+
+/* Thumb */
+.slider__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -8px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  box-shadow: var(--sh-1);
+  transition: transform var(--dur-1) var(--ease);
+}
+
+.slider__input::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.slider__input::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  box-shadow: var(--sh-1);
+}
+
+.slider__scale {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-1);
+}
+
+.slider__tick {
+  flex: 1;
+  font-size: var(--fs-11);
+  color: var(--muted-soft);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.slider__tick:first-child {
+  text-align: left;
+}
+
+.slider__tick:last-child {
+  text-align: right;
+}
+
+.slider__tick--active {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.slider__hint {
+  font-size: var(--fs-12);
+  color: var(--muted);
+  line-height: 1.45;
+  margin: 0;
+}
